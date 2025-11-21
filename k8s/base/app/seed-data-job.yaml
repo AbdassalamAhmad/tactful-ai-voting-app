@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: seed-data-job
+spec:
+  completions: 1
+  template:
+    spec:
+      containers:
+      - name: seed-data-job
+        image: tactful-ai-voting-app-seed:latest
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - configMapRef:
+              name: seed-data-config
+      resources:
+        requests:
+          cpu: 50m
+          memory: 256Mi
+        limits:
+          cpu: 200m
+          memory: 256Mi
+      restartPolicy: Never
+      
+  backoffLimit: 1

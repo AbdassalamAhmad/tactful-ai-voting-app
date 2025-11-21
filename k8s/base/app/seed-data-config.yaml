@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: seed-data-config
+data:
+  VOTE_HOST: "vote-service"
+  VOTE_PORT: "8080"
