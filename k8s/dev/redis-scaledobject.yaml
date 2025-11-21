@@ -1,0 +1,32 @@
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: redis-scaledobject
+  # if we want to pause auto-scaling and set it to 1 use these settings
+  # annotations:
+  #   autoscaling.keda.sh/paused-replicas: "1"
+  #   autoscaling.keda.sh/paused: "true"
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: worker-deployment
+  pollingInterval: 10
+  cooldownPeriod: 100
+  minReplicaCount: 1
+  maxReplicaCount: 5
+  fallback:
+    failureThreshold: 3
+    replicas: 1
+  triggers:
+  - type: redis
+    metadata:
+      address: redis.dev.svc.cluster.local:6379
+      # usernameFromEnv: REDIS_USERNAME # optional
+      # passwordFromEnv: REDIS_PASSWORD
+      listName: votes # Required
+      listLength: "30" # Required
+      enableTLS: "false" # optional
+      unsafeSsl: "false" # optional
+      databaseIndex: "0" # optional, Index of Redis database to use
