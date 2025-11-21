@@ -1,0 +1,12 @@
+resources:
+  - ../base
+  - redis-scaledobject.yaml
+  - networkpolicy.yaml
+  - postgres-secret.yaml
+  - postgres-dot-net-secret.yaml
+namespace: prod
+
+patchesStrategicMerge:
+  - patch-worker-deploymnet.yaml
+  - networking/result-ingress.yaml
+  - networking/vote-ingress.yaml
