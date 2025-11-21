@@ -1,6 +1,6 @@
 resources:
   - result-deployment.yaml
   - seed-data-config.yaml
-  # - seed-data-job.yaml
+  - seed-data-job.yaml
   - vote-deployment.yaml
   - worker-deployment.yaml
